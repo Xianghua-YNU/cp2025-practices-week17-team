@@ -19,13 +19,12 @@ def solve_ode(h, g, max_iter=10000, tol=1e-6):
     Returns:
         tuple: (time array, solution array)
     """
-    # Initialize time array
+    # 时间序列初始化
     t = np.arange(0, 10 + h, h)
     
-    # Initialize solution array
+    # 解的序列初始化
     x = np.zeros(t.size)
     
-    # Apply relaxation iteration
     delta = 1.0
     iteration = 0
     
@@ -34,24 +33,23 @@ def solve_ode(h, g, max_iter=10000, tol=1e-6):
         
         x_new[1:-1] = 0.5 * (h * h * g + x[2:] + x[:-2])
         
-        # Calculate maximum change
+        # 计算最大变化
         delta = np.max(np.abs(x_new - x))
         
-        # Update solution
+        # 更新解的情况
         x = x_new
         iteration += 1
     
     return t, x
 
-if __name__ == "__main__":
-    # Problem parameters
+if __name__ == "__main__"：
     h = 10.0 / 100  # Time step
     g = 9.8          # Gravitational acceleration
     
-    # Solve the ODE
+    # 解方程
     t, x = solve_ode(h, g)
     
-    # Plot results
+    # 画出结果
     plt.figure(figsize=(10, 6))
     plt.plot(t, x, 'b-', linewidth=2, label='Projectile trajectory')
     plt.xlabel('Time (s)')
@@ -61,7 +59,7 @@ if __name__ == "__main__":
     plt.legend()
     plt.show()
     
-    # Print maximum height and time
+    # 输出最大高度及其时间
     max_height = np.max(x)
     max_time = t[np.argmax(x)]
     print(f"Maximum height: {max_height:.2f} m at t = {max_time:.2f} s")

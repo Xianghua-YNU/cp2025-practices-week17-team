@@ -59,7 +59,6 @@ def solve_poisson_equation(M: int = 100, target: float = 1e-6, max_iterations: i
     rho[pos_y1:pos_y2, pos_x1:pos_x2] = 1.0   
     rho[neg_y1:neg_y2, neg_x1:neg_x2] = -1.0  
     
-    
     delta = 1.0
     iterations = 0
     converged = False
@@ -70,7 +69,6 @@ def solve_poisson_equation(M: int = 100, target: float = 1e-6, max_iterations: i
                                    phi[1:-1, :-2] + phi[1:-1, 2:] + 
                                    h*h * rho[1:-1, 1:-1])
         
-
         delta = np.max(np.abs(phi - phi_prev))
         
         phi_prev = np.copy(phi)
@@ -93,29 +91,24 @@ def visualize_solution(phi: np.ndarray, M: int = 100) -> None:
         - 添加颜色条和标签
         - 标注电荷位置
     """
-    
-
-    im = plt.imshow(phi, extent=[0, M, 0, M], origin='lower', 
-                    cmap='RdBu_r', interpolation='bilinear')
-    
-
-    cbar = plt.colorbar(im)
-    cbar.set_label('Electric Potential (V)', fontsize=12)
-    
-
-    plt.fill_between([20, 40], [60, 60], [80, 80], alpha=0.3, color='red', label='Positive Charge')
-    plt.fill_between([60, 80], [20, 20], [40, 40], alpha=0.3, color='blue', label='Negative Charge')
-    
-
-    plt.xlabel('x (grid points)', fontsize=12)
-    plt.ylabel('y (grid points)', fontsize=12)
-    plt.title('Electric Potential Distribution\nPoisson Equation with Positive and Negative Charges', fontsize=14)
-    plt.legend()
-    
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.show()
+        # 修正缩进错误
+        im = plt.imshow(phi, extent=[0, M, 0, M], origin='lower', cmap='RdBu_r', interpolation='bilinear')
+        
+        cbar = plt.colorbar(im)
+        cbar.set_label('Electric Potential (V)', fontsize=12)
+        
+        plt.fill_between([20, 40], [60, 60], [80, 80], alpha=0.3, color='red', label='Positive Charge')
+        plt.fill_between([60, 80], [20, 20], [40, 40], alpha=0.3, color='blue', label='Negative Charge')
+        
+        plt.xlabel('x (grid points)', fontsize=12)
+        plt.ylabel('y (grid points)', fontsize=12)
+        plt.title('Electric Potential Distribution\nPoisson Equation with Positive and Negative Charges', fontsize=14)
+        plt.legend()
+        
+        plt.grid(True, alpha=0.3)
+        
+        plt.tight_layout()
+        plt.show()
 
 def analyze_solution(phi: np.ndarray, iterations: int, converged: bool) -> None:
     """
@@ -136,7 +129,6 @@ def analyze_solution(phi: np.ndarray, iterations: int, converged: bool) -> None:
     print(f"  Min potential: {np.min(phi):.6f} V")
     print(f"  Potential range: {np.max(phi) - np.min(phi):.6f} V")
     
-
     max_idx = np.unravel_index(np.argmax(phi), phi.shape)
     min_idx = np.unravel_index(np.argmin(phi), phi.shape)
     print(f"  Max potential location: ({max_idx[0]}, {max_idx[1]})")
@@ -146,23 +138,18 @@ if __name__ == "__main__":
 
     print("Solving 2D Poisson equation with relaxation method...")
     
-
     M = 100
     target = 1e-6
     max_iter = 10000
     
-
     phi, iterations, converged = solve_poisson_equation(M, target, max_iter)
     
-
     analyze_solution(phi, iterations, converged)
     
     visualize_solution(phi, M)
     
-
     plt.figure(figsize=(12, 5))
     
-
     plt.subplot(1, 2, 1)
     center_y = M // 2
     plt.plot(phi[center_y, :], 'b-', linewidth=2)
@@ -171,7 +158,6 @@ if __name__ == "__main__":
     plt.title(f'Potential along y = {center_y}')
     plt.grid(True, alpha=0.3)
     
-
     plt.subplot(1, 2, 2)
     center_x = M // 2
     plt.plot(phi[:, center_x], 'r-', linewidth=2)

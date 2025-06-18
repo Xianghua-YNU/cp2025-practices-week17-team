@@ -4,19 +4,6 @@ from mpl_toolkits.mplot3d import Axes3D
 import time
 
 def solve_laplace_jacobi(xgrid, ygrid, w, d, tol=1e-5):
-    """
-    Solve Laplace equation using Jacobi iteration method.
-    
-    Args:
-        xgrid (int): Number of grid points in x direction
-        ygrid (int): Number of grid points in y direction
-        w (int): Width of parallel plates
-        d (int): Distance between parallel plates
-        tol (float): Convergence tolerance
-    
-    Returns:
-        tuple: (potential_array, iterations, convergence_history)
-    """
     # Initialize potential grid
     u = np.zeros((ygrid, xgrid))
     
@@ -56,20 +43,6 @@ def solve_laplace_jacobi(xgrid, ygrid, w, d, tol=1e-5):
     return u, iterations, convergence_history
 
 def solve_laplace_sor(xgrid, ygrid, w, d, omega=1.25, Niter=1000, tol=1e-5):
-    """
-    Solve Laplace equation using Gauss-Seidel SOR iteration method.
-    
-    Args:
-        xgrid (int): Number of grid points in x direction
-        ygrid (int): Number of grid points in y direction
-        w (int): Width of parallel plates
-        d (int): Distance between parallel plates
-        omega (float): Relaxation factor
-        Niter (int): Maximum number of iterations
-    
-    Returns:
-        tuple: (potential_array, iterations, convergence_history)
-    """
     # Initialize potential grid
     u = np.zeros((ygrid, xgrid))
     
@@ -116,15 +89,6 @@ def solve_laplace_sor(xgrid, ygrid, w, d, omega=1.25, Niter=1000, tol=1e-5):
     return u, iteration + 1, convergence_history
 
 def plot_results(x, y, u, method_name):
-    """
-    Plot 3D potential distribution and equipotential contours.
-    
-    Args:
-        x (array): X coordinates
-        y (array): Y coordinates
-        u (array): Potential distribution
-        method_name (str): Name of the method used
-    """
     fig = plt.figure(figsize=(10, 5))
     
     # 3D wireframe plot
